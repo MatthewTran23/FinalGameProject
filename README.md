@@ -16,6 +16,7 @@ An in-depth paragraph about your project and overview of use.
 ### Installing
 
 * Files are found through the provided github link which would have to be intported into Vscode and ran.
+* Pygame will need to be installed. Reference Link: https://www.pygame.org/wiki/GettingStarted#Pygame%20Installation
 
 ### Executing program
 
