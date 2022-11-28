@@ -3,13 +3,14 @@ Penguin Slide final Project
 
 discription: a obsticle based platformer with the goal of making a user accesssable playing experience 
 
-required files: sprites import, main.py, class.py, settings.py
+required files: sprites import, main.py, class.py, settings.py, function.py
 
 libraries: pygame, more depends
 
 Sources: 
     -https://www.pygame.org/docs/
-    -
+    -https://www.geeksforgeeks.org/python-call-function-from-another-file/
+    -https://opengameart.org/content/tux-bros
 
 Construction Steps
     -Add needed libraries in all files
@@ -19,11 +20,25 @@ Construction Steps
 
 
 '''
-# libraries
-import pygame# import libraries and modules
+# import libraries and modules
+import pygame
 import pygame as pg
 from pygame.sprite import Sprite
 from random import randint
+from setting import *
+from classes import *
 
 # game loop
+run = True
+while run==True:
 
+# game loop
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            run = False
+
+    pg.display.update()
+
+    screen.fill(WHITE)
+
+pg.quit()
