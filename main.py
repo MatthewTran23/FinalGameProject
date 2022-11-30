@@ -27,18 +27,25 @@ from pygame.sprite import Sprite
 from random import randint
 from setting import *
 from classes import *
+from functions import *
+
+# instence of the world class
+game_world = World(level_map)
 
 # game loop
 run = True
 while run==True:
 
-# game loop
+    # call the method to draw the world 
+    game_world.draw()
+    draw_grid()
+
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
 
     pg.display.update()
 
-    screen.fill(WHITE)
+    screen.fill(BLACK)
 
 pg.quit()
