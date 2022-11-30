@@ -34,7 +34,7 @@ class World():
     # draw method
     def draw(self):
         for tile in self.tile_list:
-            # to draw the img imported
+            # to draw the img import
             screen.blit(tile[0], tile[1])
 
 class Player():
