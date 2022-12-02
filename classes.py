@@ -39,30 +39,72 @@ class World():
 
 class Player():
     def __inti__(self, x ,y):
-        # load the player image. will be penguin 
-        img = pygame.image.load("PLACEHOLDER")
-        self.image = pygame.transform.scale(img,(40,80))
+        # list of img assets
+        self.images_right = []
+        self.images_left = []
+        self.index = 0
+        # use self.counter to track speed of player animation
+        self.counter = 0
+        # for loop to load multiple imgs
+        for num in range(1,5):
+            img_right = pygame.image.load(f'PLACEHOLDER')
+            img_right = pygame.transform.scale(img_right,(40,80))
+            # flip the img right for left using pygame 
+            img_left = pygame.transform.flip(img_right, True, False)
+            # to not overide use append function. add to list
+            self.images_right.append(img_right)
+            self.images_left.append(img_left)
+        # use the first img from the images_right list whe first loaded in
+        self.image = self.images_right[self.index]
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.vel_y = 0
         self.jumped = False
+        self.direction = 0
 
     def update(self):
         dx = 0
         dy = 0
+        walk_cooldown = 5
         
-        # movement inputs
+        # movement inputs based on key presses
         key = pygame.key.get_pressed()
         if key[pygame.K_SPACE] and self.jumped == False:
             self.vel.y = -15
             self.jumped = True
-        if key[pygame.K_SPACE]:
+        if key[pygame.K_SPACE] == False:
             self.jumped = False
         if key[pygame.K_LEFT]:
             dx -= 5
+            # counter +1 only if movement keys are pressed 
+            self.counter +=1
+            self.direction = -1
         if key[pygame.K_RIGHT]:
             dx += 5
+            # counter +1 only if movement keys are pressed 
+            self.counter +=1
+            self.direction = 1
+        # if statement to reset the image's animation if keys not pressed
+        if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT]== False:
+            self.counter = 0 
+            self.index = 0
+            if self.direction == 1:
+                self.images = self.images_right[self.index]
+            if self.direction == -1:
+                self.images = self.images_left[self.index]
+
+        # animatio update. if statement to slow down the animation
+        if self.counter > walk_cooldown:
+            self.counter = 0 
+            self.index +=1 
+            # if statement to make sure that the sprite resets once it exceeds the length of the list
+            if self.index >= len(self.images_right):
+                    self.index = 0
+            if self.direction == 1:
+                self.images = self.images_right[self.index]
+            if self.direction == -1:
+                self.images = self.images_left[self.index]
 
         # add gravity
         self.vel_y += 1

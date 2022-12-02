@@ -3,16 +3,17 @@ import pygame# import libraries and modules
 import pygame, sys
 import pygame as pg
 from pygame.sprite import Sprite
+from pygame.locals import *
 from random import randint
 # settings
 
 # short hand for pygame vector for ease of use
 vec = pg.math.Vector2
 
-# game settings 
+# game settings
 WIDTH = 800
 HEIGHT = 800
-FPS = 30
+FPS = 60
 screen= pg.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Penguin Run")
 clock = pg.time.Clock()

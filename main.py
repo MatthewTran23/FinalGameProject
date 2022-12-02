@@ -36,6 +36,8 @@ game_world = World(level_map)
 run = True
 while run==True:
 
+    clock.tick(FPS)
+    
     # call the method to draw the world 
     game_world.draw()
     draw_grid()
