@@ -11,7 +11,7 @@ class World():
         # list to store the data from the construction of the world
         self.title_list = []    
         # load images
-        ice_img = pygame.image.load("PLACEHOLDER")
+        ice_img = pygame.image.load('moutain_background.png')
 
         # this loop will load in a img then scale that by the tile size and make a rectangle from that
         row_count = 0
@@ -46,8 +46,8 @@ class Player():
         # use self.counter to track speed of player animation
         self.counter = 0
         # for loop to load multiple imgs
-        for num in range(1,5):
-            img_right = pygame.image.load(f'PLACEHOLDER')
+        for num in range(1,4):
+            img_right = pygame.image.load(f'penguin_sprite_0{num}.png')
             img_right = pygame.transform.scale(img_right,(40,80))
             # flip the img right for left using pygame 
             img_left = pygame.transform.flip(img_right, True, False)
