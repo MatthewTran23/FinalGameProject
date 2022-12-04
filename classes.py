@@ -33,7 +33,7 @@ class World():
             row_count += 1
     # draw method
     def draw(self):
-        for tile in self.tile_list:
+        for tile in self.title_list:
             # to draw the img import
             screen.blit(tile[0], tile[1])
 
