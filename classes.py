@@ -74,20 +74,23 @@ class Player:
         if key[pygame.K_SPACE] and self.jumped == False:
             self.vel_y = -15
             self.jumped = True
+        if key[pygame.K_w] and self.jumped == False:
+            self.vel_y = -15
+            self.jumped = True
         if key[pygame.K_SPACE] == False:
             self.jumped = False
-        if key[pygame.K_LEFT]:
+        if key[pygame.K_a]:
             dx -= 5
             # counter +1 only if movement keys are pressed 
             self.counter +=1
             self.direction = -1
-        if key[pygame.K_RIGHT]:
+        if key[pygame.K_d]:
             dx += 5
             # counter +1 only if movement keys are pressed 
             self.counter +=1
             self.direction = 1
         # if statement to reset the image's animation if keys not pressed
-        if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT]== False:
+        if key[pygame.K_a] == False and key[pygame.K_d]== False:
             self.counter = 0 
             self.index = 0
             if self.direction == 1:
