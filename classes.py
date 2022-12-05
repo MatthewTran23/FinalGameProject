@@ -11,7 +11,7 @@ class World():
         # list to store the data from the construction of the world
         self.title_list = []    
         # load images
-        ice_img = pygame.image.load('ice_tile.png')
+        ice_img = pygame.image.load('ice_tile.png').convert_alpha()
 
         # this loop will load in a img then scale that by the tile size and make a rectangle from that
         row_count = 0
@@ -19,8 +19,8 @@ class World():
             # varable allow for for loop know where to put tile from the world_data information
             col_count = 0 
             for tile in row:
-                if tile ==1:
-                    img = pygame.transform.scale(ice_img, tile_size, tile_size)
+                if tile == 1:
+                    img = pygame.transform.scale(ice_img, (tile_size, tile_size))
                     # gives imported image convert it into rectangle object to store its information used later for collision 
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
@@ -34,11 +34,11 @@ class World():
     # draw method
     def draw(self):
         for tile in self.title_list:
-            # to draw the img import
+            # to draw the img import    
             screen.blit(tile[0], tile[1])
 
-class Player():
-    def __inti__(self, x ,y):
+class Player:
+    def __init__(self, x ,y):
         # list of img assets
         self.images_right = []
         self.images_left = []
@@ -47,8 +47,8 @@ class Player():
         self.counter = 0
         # for loop to load multiple imgs
         for num in range(1,4):
-            img_right = pygame.image.load(f'penguin_sprite_0{num}.png')
-            img_right = pygame.transform.scale(img_right,(40,80))
+            img_right = pygame.image.load(f'penguin_sprite_0{num}.png').convert_alpha()
+            img_right = pygame.transform.scale(img_right,(tile_size,tile_size))
             # flip the img right for left using pygame 
             img_left = pygame.transform.flip(img_right, True, False)
             # to not overide use append function. add to list
@@ -62,16 +62,17 @@ class Player():
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
+        self.animation_time = 0.1
 
     def update(self):
         dx = 0
         dy = 0
-        walk_cooldown = 5
+        walk_cooldown = 20
         
         # movement inputs based on key presses
         key = pygame.key.get_pressed()
         if key[pygame.K_SPACE] and self.jumped == False:
-            self.vel.y = -15
+            self.vel_y = -15
             self.jumped = True
         if key[pygame.K_SPACE] == False:
             self.jumped = False
@@ -95,21 +96,20 @@ class Player():
                 self.images = self.images_left[self.index]
 
         # animatio update. if statement to slow down the animation
-        if self.counter > walk_cooldown:
-            self.counter = 0 
-            self.index +=1 
-            # if statement to make sure that the sprite resets once it exceeds the length of the list
-            if self.index >= len(self.images_right):
-                    self.index = 0
-            if self.direction == 1:
-                self.images = self.images_right[self.index]
-            if self.direction == -1:
-                self.images = self.images_left[self.index]
+
+        self.index += self.animation_time
+        # if statement to make sure that the sprite resets once it exceeds the length of the list
+        if self.index >= len(self.images_right):
+                self.index = 0
+        if self.direction == 1:
+            self.image = self.images_right[int(self.index)]
+        if self.direction == -1:
+            self.image = self.images_left[int(self.index)]
 
         # add gravity
         self.vel_y += 1
         if self.vel_y > 10:
-            self.vel.y = 10
+            self.vel_y = 10
         dy += self.vel_y
 
         # update player cordinates

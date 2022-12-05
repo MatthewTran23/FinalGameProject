@@ -32,22 +32,27 @@ from functions import *
 # instence of the world class
 game_world = World(level_map)
 
+player = Player(100, HEIGHT - 130)
+
 # game loop
 run = True
 while run==True:
 
     clock.tick(FPS)
-    
-    # call the method to draw the world 
-    game_world.draw()
+   
     # draw backgound
     screen.blit(background, (0,0))
+    # call the method to draw the world 
+    game_world.draw()
+    
+    player.update()
+
     draw_grid()
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
-
+    
     pg.display.update()
 
     screen.fill(BLACK)
