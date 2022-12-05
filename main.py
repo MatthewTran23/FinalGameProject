@@ -40,6 +40,8 @@ while run==True:
     
     # call the method to draw the world 
     game_world.draw()
+    # draw backgound
+    screen.blit(background, (0,0))
     draw_grid()
 
     for event in pg.event.get():

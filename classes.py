@@ -11,7 +11,7 @@ class World():
         # list to store the data from the construction of the world
         self.title_list = []    
         # load images
-        ice_img = pygame.image.load('moutain_background.png')
+        ice_img = pygame.image.load('ice_tile.png')
 
         # this loop will load in a img then scale that by the tile size and make a rectangle from that
         row_count = 0
