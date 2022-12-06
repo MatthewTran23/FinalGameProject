@@ -49,7 +49,7 @@ class Player:
         # for loop to load multiple imgs
         for num in range(1,5):
             img_right = pygame.image.load(f'penguin_sprite_0{num}.png').convert_alpha()
-            img_right = pygame.transform.scale(img_right,(tile_size,tile_size))
+            img_right = pygame.transform.scale(img_right,(tile_size,tile_size-5))
             # flip the img right for left using pygame 
             img_left = pygame.transform.flip(img_right, True, False)
             # to not overide use append function. add to list
