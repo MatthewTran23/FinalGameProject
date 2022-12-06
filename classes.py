@@ -4,16 +4,14 @@ import pygame as pg
 from pygame.sprite import Sprite
 from random import randint
 from setting import *
-from main import *
 
 # Classes
 class World():
     def __init__(self, data):
         # list to store the data from the construction of the world
-        self.title_list = []    
+        self.tile_list = []    
         # load images
         ice_img = pygame.image.load('ice_tile.png').convert_alpha()
-
         # this loop will load in a img then scale that by the tile size and make a rectangle from that
         row_count = 0
         for row in data:
@@ -29,16 +27,16 @@ class World():
                     # save both img_rect and the img in a touple
                     tile = (img, img_rect)
                     # use append function from python to add to list
-                    self.title_list.append(tile)
+                    self.tile_list.append(tile)
                 col_count += 1
             row_count += 1
     # draw method
     def draw(self):
-        for tile in self.title_list:
+        for tile in self.tile_list:
             # to draw the img import    
             screen.blit(tile[0], tile[1])
             # draw rectangle around the block sprite
-            pygame.draw.rect(screen, WHITE, tile[1], 2)
+            # pygame.draw.rect(screen, WHITE, tile[1], 2)
 
 class Player:
     def __init__(self, x ,y):
@@ -63,7 +61,7 @@ class Player:
         self.rect.x = x
         self.rect.y = y
         self.width = self.image.get_width()
-        self.height = self.image.height()
+        self.height = self.image.get_height()
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
@@ -119,9 +117,19 @@ class Player:
 
         # check colision using for loop to check collsion with tiles on world map
         for tile in game_world.tile_list:
+            # check for colsion along the x direction
+            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+                dx = 0
             # check for colsion along the y direction
             if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
                 # check is below the ground when jumping
+                if self.vel_y < 0:
+                    dy = tile[1].bottom - self.rect.top
+                    self.vel_y = 0
+                # check is above the ground when falling
+                elif self.vel_y >= 0:
+                    dy = tile[1].top - self.rect.bottom
+                    self.vel_y = 0
 
         # update player cordinates
         self.rect.x += dx
@@ -136,4 +144,10 @@ class Player:
         screen.blit(self.image, self.rect)
         
         # draw rectangle around the player sprite
-        pygame.draw.rect(screen, WHITE, self.rect, 2)
+        # pygame.draw.rect(screen, WHITE, self.rect, 2)
+
+# instence of the world class
+game_world = World(level_map)
+
+# instence of player
+player = Player(100, HEIGHT - 130)
