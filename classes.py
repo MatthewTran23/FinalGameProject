@@ -47,7 +47,7 @@ class Player:
         # use self.counter to track speed of player animation
         self.counter = 0
         # for loop to load multiple imgs
-        for num in range(1,4):
+        for num in range(1,5):
             img_right = pygame.image.load(f'penguin_sprite_0{num}.png').convert_alpha()
             img_right = pygame.transform.scale(img_right,(tile_size,tile_size))
             # flip the img right for left using pygame 
