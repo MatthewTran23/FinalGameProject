@@ -20,7 +20,7 @@ Construction Steps
 
 
 '''
-# import libraries and modules
+# import libraries and module
 import pygame
 import pygame as pg
 from pygame.sprite import Sprite
