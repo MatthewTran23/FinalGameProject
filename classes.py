@@ -4,6 +4,7 @@ import pygame as pg
 from pygame.sprite import Sprite
 from random import randint
 from setting import *
+from main import *
 
 # Classes
 class World():
@@ -36,6 +37,8 @@ class World():
         for tile in self.title_list:
             # to draw the img import    
             screen.blit(tile[0], tile[1])
+            # draw rectangle around the block sprite
+            pygame.draw.rect(screen, WHITE, tile[1], 2)
 
 class Player:
     def __init__(self, x ,y):
@@ -59,6 +62,8 @@ class Player:
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.height()
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
@@ -112,6 +117,12 @@ class Player:
             self.vel_y = 10
         dy += self.vel_y
 
+        # check colision using for loop to check collsion with tiles on world map
+        for tile in game_world.tile_list:
+            # check for colsion along the y direction
+            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                # check is below the ground when jumping
+
         # update player cordinates
         self.rect.x += dx
         self.rect.y +=dy
@@ -121,4 +132,8 @@ class Player:
             self.rect.bottom = HEIGHT
             dy = 0
         
+        # draw player no screen
         screen.blit(self.image, self.rect)
+        
+        # draw rectangle around the player sprite
+        pygame.draw.rect(screen, WHITE, self.rect, 2)
