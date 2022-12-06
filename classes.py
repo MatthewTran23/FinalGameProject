@@ -65,12 +65,12 @@ class Player:
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
-        self.animation_time = 0.1
+        self.animation_time = 0.5
 
     def update(self):
         dx = 0
         dy = 0
-        walk_cooldown = 20
+        walk_cooldown = 1
         
         # movement inputs based on key presses
         key = pygame.key.get_pressed()
