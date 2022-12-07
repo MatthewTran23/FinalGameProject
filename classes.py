@@ -72,8 +72,30 @@ class Player:
         dy = 0
         walk_cooldown = 1
 
-        # animatio update. if statement to slow down the animation
+        # movement inputs based on key presses
+        key = pygame.key.get_pressed()
+        if key[pygame.K_SPACE] == False:
+            self.jumped = False
+        if key[pygame.K_a]:
+            dx -= 5
+            # counter +1 only if movement keys are pressed 
+            self.counter +=1
+            self.direction = -1
+        if key[pygame.K_d]:
+            dx += 5
+            # counter +1 only if movement keys are pressed 
+            self.counter +=1
+            self.direction = 1
+        # if statement to reset the image's animation if keys not pressed
+        if key[pygame.K_a] == False and key[pygame.K_d]== False:
+            self.counter = 0 
+            self.index = 0
+            if self.direction == 1:
+                self.images = self.images_right[self.index]
+            if self.direction == -1:
+                self.images = self.images_left[self.index]
 
+        # animatio update. if statement to slow down the animation
         self.index += self.animation_time
         # if statement to make sure that the sprite resets once it exceeds the length of the list
         if self.index >= len(self.images_right):
@@ -105,31 +127,10 @@ class Player:
                     dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
 
-        # movement inputs based on key presses
-        key = pygame.key.get_pressed()
+        # odd fix but adding this input here fixes sky jump issues while not disturbing collision
         if key[pygame.K_SPACE] and self.jumped == False and self.rect.bottom == tile[1].top:
             self.vel_y = -15
             self.jumped = True
-        if key[pygame.K_SPACE] == False:
-            self.jumped = False
-        if key[pygame.K_a]:
-            dx -= 5
-            # counter +1 only if movement keys are pressed 
-            self.counter +=1
-            self.direction = -1
-        if key[pygame.K_d]:
-            dx += 5
-            # counter +1 only if movement keys are pressed 
-            self.counter +=1
-            self.direction = 1
-        # if statement to reset the image's animation if keys not pressed
-        if key[pygame.K_a] == False and key[pygame.K_d]== False:
-            self.counter = 0 
-            self.index = 0
-            if self.direction == 1:
-                self.images = self.images_right[self.index]
-            if self.direction == -1:
-                self.images = self.images_left[self.index]
 
         # update player cordinates
         self.rect.x += dx
