@@ -74,6 +74,9 @@ class Player:
 
         # movement inputs based on key presses
         key = pygame.key.get_pressed()
+        if key[pygame.K_SPACE] and self.jumped == False:
+            self.vel_y = -15
+            self.jumped = True
         if key[pygame.K_SPACE] == False:
             self.jumped = False
         if key[pygame.K_a]:
@@ -126,11 +129,6 @@ class Player:
                 elif self.vel_y >= 0:
                     dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
-
-        # odd fix but adding this input here fixes sky jump issues while not disturbing collision
-        if key[pygame.K_SPACE] and self.jumped == False and self.rect.bottom == tile[1].top:
-            self.vel_y = -15
-            self.jumped = True
 
         # update player cordinates
         self.rect.x += dx
