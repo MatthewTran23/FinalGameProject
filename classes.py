@@ -170,6 +170,9 @@ class Player:
         if self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
             dy = 0
+        if self.rect.top < 0:
+            self.rect.top = 0
+            dy = 0
         
         # draw player no screen
         screen.blit(self.image, self.rect)
