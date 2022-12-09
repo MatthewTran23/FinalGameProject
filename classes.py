@@ -183,4 +183,4 @@ game_world = World(level_map)
 spike = Spikes(level_map)
 
 # instence of player
-player = Player(100, HEIGHT - 130)
+player = Player(50, HEIGHT - 130)
