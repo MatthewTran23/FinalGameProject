@@ -66,6 +66,7 @@ class Player:
         self.jumped = False
         self.direction = 0
         self.animation_time = 0.5
+        self.in_air = True
 
     def update(self):
         dx = 0
@@ -74,7 +75,7 @@ class Player:
 
         # movement inputs based on key presses
         key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE] and self.jumped == False:
+        if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
             self.vel_y = -15
             self.jumped = True
         if key[pygame.K_SPACE] == False:
@@ -114,6 +115,7 @@ class Player:
             self.vel_y = 10
         dy += self.vel_y
 
+        self.in_air = True
         # check colision using for loop to check collsion with tiles on world map
         for tile in game_world.tile_list:
             # check for colsion along the x direction
@@ -129,6 +131,7 @@ class Player:
                 elif self.vel_y >= 0:
                     dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
+                    self.in_air = False
 
         # update player cordinates
         self.rect.x += dx

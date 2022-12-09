@@ -4,6 +4,7 @@ import pygame as pg
 from pygame.sprite import Sprite
 from random import randint
 from setting import *
+from classes import *
 
 # drawing grid function on display screen using pygame draw function
 def draw_grid():
