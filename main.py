@@ -38,6 +38,7 @@ while run==True:
     screen.blit(background, (0,0))
     # call the method to draw the world 
     game_world.draw()
+    spike.draw()
     # player update method called
     player.update()
 

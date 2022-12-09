@@ -37,7 +37,35 @@ class World():
             screen.blit(tile[0], tile[1])
             # draw rectangle around the block sprite
             # pygame.draw.rect(screen, WHITE, tile[1], 2)
-
+class Spikes():
+    def __init__(self, data):
+        # list to store the data from the construction of the world
+        self.tile_list = []    
+        # load images
+        ice_img = pygame.image.load(os.path.join(game_folder, 'spike.png')).convert_alpha()
+        # this loop will load in a img then scale that by the tile size and make a rectangle from that
+        row_count = 0
+        for row in data:
+            # varable allow for for loop know where to put tile from the world_data information
+            col_count = 0 
+            for tile in row:
+                if tile == 2:
+                    img = pygame.transform.scale(ice_img, (tile_size, tile_size))
+                    # gives imported image convert it into rectangle object to store its information used later for collision 
+                    img_rect = img.get_rect()
+                    img_rect.x = col_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    # save both img_rect and the img in a touple
+                    tile = (img, img_rect)
+                    # use append function from python to add to list
+                    self.tile_list.append(tile)
+                col_count += 1
+            row_count += 1
+    # draw method
+    def draw(self):
+        for tile in self.tile_list:
+            # to draw the img import    
+            screen.blit(tile[0], tile[1])
 class Player:
     def __init__(self, x ,y):
         # list of img assets
@@ -151,6 +179,8 @@ class Player:
 
 # instence of the world class
 game_world = World(level_map)
+
+spike = Spikes(level_map)
 
 # instence of player
 player = Player(100, HEIGHT - 130)
