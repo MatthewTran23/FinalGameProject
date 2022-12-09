@@ -18,7 +18,6 @@ Construction Steps
     -Make classes in class.py
     -Add window and global variable settings in settings.py
 
-
 '''
 # import libraries and module
 import pygame

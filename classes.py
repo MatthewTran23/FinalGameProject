@@ -11,7 +11,7 @@ class World():
         # list to store the data from the construction of the world
         self.tile_list = []    
         # load images
-        ice_img = pygame.image.load('ice_tile.png').convert_alpha()
+        ice_img = pygame.image.load(os.path.join(game_folder, 'ice_tile.png')).convert_alpha()
         # this loop will load in a img then scale that by the tile size and make a rectangle from that
         row_count = 0
         for row in data:
@@ -48,7 +48,7 @@ class Player:
         self.counter = 0
         # for loop to load multiple imgs
         for num in range(1,5):
-            img_right = pygame.image.load(f'penguin_sprite_0{num}.png').convert_alpha()
+            img_right = pygame.image.load(os.path.join(game_folder, f'penguin_sprite_0{num}.png' )).convert_alpha()
             img_right = pygame.transform.scale(img_right,(tile_size,tile_size-5))
             # flip the img right for left using pygame 
             img_left = pygame.transform.flip(img_right, True, False)
@@ -115,6 +115,7 @@ class Player:
             self.vel_y = 10
         dy += self.vel_y
 
+        # state that in_air true
         self.in_air = True
         # check colision using for loop to check collsion with tiles on world map
         for tile in game_world.tile_list:

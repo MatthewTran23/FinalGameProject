@@ -5,6 +5,7 @@ import pygame as pg
 from pygame.sprite import Sprite
 from pygame.locals import *
 from random import randint
+import os 
 # settings
 
 # short hand for pygame vector for ease of use
@@ -26,8 +27,12 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
+# setup assest for img folder
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder, 'images')
+
 # Background img Import
-background = pygame.image.load('moutain_background2.png')
+background = pygame.image.load(os.path.join(game_folder,'moutain_background2.png'))
 
 # tile size
 tile_size = 50
