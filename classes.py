@@ -4,6 +4,7 @@ import pygame as pg
 from pygame.sprite import Sprite
 from random import randint
 from setting import *
+from functions import *
 
 # Classes
 class World():
@@ -28,6 +29,12 @@ class World():
                     tile = (img, img_rect)
                     # use append function from python to add to list
                     self.tile_list.append(tile)
+                if tile == 2:
+                    spike = Spikes(col_count * tile_size, row_count * tile_size)
+                    spike_group.add(spike)
+                if tile == 3:
+                    door = Door(col_count * tile_size, row_count * tile_size)
+                    door_group.add(door)
                 col_count += 1
             row_count += 1
     # draw method
@@ -37,35 +44,27 @@ class World():
             screen.blit(tile[0], tile[1])
             # draw rectangle around the block sprite
             # pygame.draw.rect(screen, WHITE, tile[1], 2)
-class Spikes():
-    def __init__(self, data):
-        # list to store the data from the construction of the world
-        self.tile_list = []    
+class Spikes(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
         # load images
-        ice_img = pygame.image.load(os.path.join(game_folder, 'spike.png')).convert_alpha()
-        # this loop will load in a img then scale that by the tile size and make a rectangle from that
-        row_count = 0
-        for row in data:
-            # varable allow for for loop know where to put tile from the world_data information
-            col_count = 0 
-            for tile in row:
-                if tile == 2:
-                    img = pygame.transform.scale(ice_img, (tile_size, tile_size))
-                    # gives imported image convert it into rectangle object to store its information used later for collision 
-                    img_rect = img.get_rect()
-                    img_rect.x = col_count * tile_size
-                    img_rect.y = row_count * tile_size
-                    # save both img_rect and the img in a touple
-                    tile = (img, img_rect)
-                    # use append function from python to add to list
-                    self.tile_list.append(tile)
-                col_count += 1
-            row_count += 1
-    # draw method
-    def draw(self):
-        for tile in self.tile_list:
-            # to draw the img import    
-            screen.blit(tile[0], tile[1])
+        img = pygame.image.load(os.path.join(game_folder, 'spike.png'))
+        self.image = pygame.transform.scale(img, (tile_size, tile_size))
+        # gives imported image convert it into rectangle object to store its information used later for collision 
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+class Door(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        # load images
+        img = pygame.image.load(os.path.join(game_folder, 'door.png'))
+        self.image = pygame.transform.scale(img, (tile_size, tile_size))
+        # gives imported image convert it into rectangle object to store its information used later for collision 
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
 class Player:
     def __init__(self, x ,y):
         # list of img assets
@@ -95,7 +94,9 @@ class Player:
         self.direction = 0
         self.animation_time = 0.5
         self.in_air = True
-
+        self.health = 100   
+    def playerkill(self):
+        self.kill()
     def update(self):
         dx = 0
         dy = 0
@@ -161,6 +162,11 @@ class Player:
                     dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
                     self.in_air = False
+        
+        if pygame.sprite.spritecollide(self, spike_group, False):
+            self.health -= 1
+        if pygame.sprite.spritecollide(self, door_group, False):
+            player.playerkill()
 
         # update player cordinates
         self.rect.x += dx
@@ -180,10 +186,38 @@ class Player:
         # draw rectangle around the player sprite
         # pygame.draw.rect(screen, WHITE, self.rect, 2)
 
+# class to create display screen for rules
+class Startscreen():
+    # attribute for class
+    def __init__(self):
+        Sprite.__init__(self)
+        self.rect = pg.Rect(WIDTH/2, HEIGHT/2, WIDTH, HEIGHT)
+        self.rect.center = (WIDTH/2, HEIGHT/2)
+        self.isalive= True
+    # method check key press to remove startscreen
+    def checkclick(self):
+        keys = pg.key.get_pressed()
+        if keys[pg.K_SPACE]:
+            self.isalive = False
+    # method that displays text on start screen
+    def display(self):
+        screen.blit(background, (0,0))
+        draw_text("Penguin Run", 18, BLACK, WIDTH/2, HEIGHT / 2- 50)
+        draw_text("SPACE to start", 18, BLACK, WIDTH/2, (HEIGHT /2)+50)
+    # method draw background 
+    def draw(self):
+        pg.draw.rect(screen, (255,255,255), self.rect)
+        self.display()
+    # update method 
+    def update(self):
+        self.isalive = True
+        keys = pg.key.get_pressed()
+        if self.isalive == True:
+            self.draw()
+        if keys[pg.K_SPACE]:
+            self.isalive = False
+
 # instence of the world class
 game_world = World(level_map)
-
-spike = Spikes(level_map)
-
 # instence of player
 player = Player(50, HEIGHT - 130)
