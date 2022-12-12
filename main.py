@@ -33,16 +33,11 @@ from setting import *
 from classes import *
 from functions import *
 
-# instence of start screen class
-startscreen= Startscreen()
-
 # game loop
-run = True
-menu = Truea
 while run == True:
-    keys = pg.key.get_pressed()
     clock.tick(FPS)
     if menu == True:
+        keys = pg.key.get_pressed()
         # draw backgound
         screen.blit(background, (0,0))
         draw_text("Penguin Run", 18, BLACK, WIDTH/2, HEIGHT / 2- 50)

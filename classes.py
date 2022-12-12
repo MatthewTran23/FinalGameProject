@@ -186,37 +186,6 @@ class Player:
         # draw rectangle around the player sprite
         # pygame.draw.rect(screen, WHITE, self.rect, 2)
 
-# class to create display screen for rules
-class Startscreen():
-    # attribute for class
-    def __init__(self):
-        Sprite.__init__(self)
-        self.rect = pg.Rect(WIDTH/2, HEIGHT/2, WIDTH, HEIGHT)
-        self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.isalive= True
-    # method check key press to remove startscreen
-    def checkclick(self):
-        keys = pg.key.get_pressed()
-        if keys[pg.K_SPACE]:
-            self.isalive = False
-    # method that displays text on start screen
-    def display(self):
-        screen.blit(background, (0,0))
-        draw_text("Penguin Run", 18, BLACK, WIDTH/2, HEIGHT / 2- 50)
-        draw_text("SPACE to start", 18, BLACK, WIDTH/2, (HEIGHT /2)+50)
-    # method draw background 
-    def draw(self):
-        pg.draw.rect(screen, (255,255,255), self.rect)
-        self.display()
-    # update method 
-    def update(self):
-        self.isalive = True
-        keys = pg.key.get_pressed()
-        if self.isalive == True:
-            self.draw()
-        if keys[pg.K_SPACE]:
-            self.isalive = False
-
 # instence of the world class
 game_world = World(level_map)
 # instence of player

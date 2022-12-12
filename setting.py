@@ -21,6 +21,10 @@ clock = pg.time.Clock()
 mpos = (0,0)
 pygame.font.init()
 
+# game varables
+run = True
+menu = True
+
 # define color
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0) 
