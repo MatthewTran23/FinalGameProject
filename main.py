@@ -40,8 +40,10 @@ while run == True:
         keys = pg.key.get_pressed()
         # draw backgound
         screen.blit(background, (0,0))
-        draw_text("Penguin Run", 18, BLACK, WIDTH/2, HEIGHT / 2- 50)
-        draw_text("SPACE to start", 18, BLACK, WIDTH/2, (HEIGHT /2)+50)
+        draw_text("Penguin Run!!! (BETA)", 24, BLACK, WIDTH/2, (HEIGHT/2) - 70)
+        draw_text("Controls: Left: A Right: D Jump: Space", 24, BLACK, WIDTH/2, (HEIGHT/2) - 20)
+        draw_text("Goal: Reach the top door to leave the cave. Be Safe!!!", 24, BLACK, WIDTH/2, (HEIGHT/2) + 30)
+        draw_text("SPACE to start", 24, BLACK, WIDTH/2, (HEIGHT/2) + 80)
         if keys[pg.K_SPACE]:
             menu = False   
     if menu == False:
