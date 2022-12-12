@@ -14,7 +14,7 @@ def draw_grid():
     
 # function for display text on screen
 def draw_text(text, size, color, x, y):
-        font_name = pg.font.match_font('arial')
+        font_name = pg.font.match_font('PCF')
         font = pg.font.Font(font_name, size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()

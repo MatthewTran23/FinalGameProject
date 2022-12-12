@@ -38,6 +38,8 @@ img_folder = os.path.join(game_folder, 'images')
 
 # Background img Import
 background = pygame.image.load(os.path.join(game_folder,'moutain_background2.png'))
+icon = pygame.image.load(os.path.join(game_folder,'icon.png'))
+
 
 # tile size
 tile_size = 50

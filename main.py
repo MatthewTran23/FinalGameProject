@@ -36,16 +36,19 @@ from functions import *
 # game loop
 while run == True:
     clock.tick(FPS)
+    # if menu = true display start screen
     if menu == True:
         keys = pg.key.get_pressed()
         # draw backgound
         screen.blit(background, (0,0))
+        screen.blit(icon, ((WIDTH/2 - 50),(HEIGHT/2) - 200))
         draw_text("Penguin Run!!! (BETA)", 24, BLACK, WIDTH/2, (HEIGHT/2) - 70)
-        draw_text("Controls: Left: A Right: D Jump: Space", 24, BLACK, WIDTH/2, (HEIGHT/2) - 20)
+        draw_text("Controls: W,A,D and Space", 24, BLACK, WIDTH/2, (HEIGHT/2) - 20)
         draw_text("Goal: Reach the top door to leave the cave. Be Safe!!!", 24, BLACK, WIDTH/2, (HEIGHT/2) + 30)
-        draw_text("SPACE to start", 24, BLACK, WIDTH/2, (HEIGHT/2) + 80)
+        draw_text('"SPACE" to start', 24, BLACK, WIDTH/2, (HEIGHT/2) + 80)
         if keys[pg.K_SPACE]:
             menu = False   
+    # if menu == false from keypress start game
     if menu == False:
         # draw backgound
         screen.blit(background, (0,0))
@@ -56,11 +59,11 @@ while run == True:
         # player update method called
         player.update()
 
-        ## draw lose text with if conditions
-        draw_text("HEALTH: " + str(player.health), 35, WHITE, 150, HEIGHT / 24)
-        if player.health <= 0:
-            draw_text("YOU LOSE", 50, RED, WIDTH / 2, 320)
-            player.playerkill()
+    ## draw lose text with if conditions
+    draw_text("HEALTH: " + str(player.health), 35, WHITE, 150, HEIGHT / 24)
+    if player.health <= 0:
+        draw_text("YOU LOSE", 50, RED, WIDTH / 2, 320)
+        player.kill()
 
     for event in pg.event.get():
         if event.type == pg.QUIT:

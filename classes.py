@@ -75,8 +75,8 @@ class Player:
         self.counter = 0
         # for loop to load multiple imgs
         for num in range(1,5):
-            img_right = pygame.image.load(os.path.join(game_folder, f'penguin_sprite_0{num}.png' )).convert_alpha()
-            img_right = pygame.transform.scale(img_right,(tile_size,tile_size-5))
+            img_right = pygame.image.load(os.path.join(game_folder, f'penguin_sprite_0{num}.png')).convert_alpha()
+            img_right = pygame.transform.scale(img_right,(tile_size,tile_size -5))
             # flip the img right for left using pygame 
             img_left = pygame.transform.flip(img_right, True, False)
             # to not overide use append function. add to list
@@ -95,8 +95,6 @@ class Player:
         self.animation_time = 0.5
         self.in_air = True
         self.health = 100   
-    def playerkill(self):
-        self.kill()
     def update(self):
         dx = 0
         dy = 0
@@ -104,10 +102,10 @@ class Player:
 
         # movement inputs based on key presses
         key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
+        if (key[pygame.K_SPACE] or key[pygame.K_w]) and self.jumped == False and self.in_air == False:
             self.vel_y = -15
             self.jumped = True
-        if key[pygame.K_SPACE] == False:
+        if (key[pygame.K_SPACE] == False or key[pygame.K_w] == False):
             self.jumped = False
         if key[pygame.K_a]:
             dx -= 5
@@ -162,11 +160,12 @@ class Player:
                     dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
                     self.in_air = False
-        
+        # if player sprite collide spike group sprites -1 to player health
         if pygame.sprite.spritecollide(self, spike_group, False):
             self.health -= 1
+        # if player sprite collide door sprites kill player sprite
         if pygame.sprite.spritecollide(self, door_group, False):
-            player.playerkill()
+            self.kill()
 
         # update player cordinates
         self.rect.x += dx
