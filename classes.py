@@ -94,10 +94,12 @@ class Player:
         self.direction = 0
         self.animation_time = 0.5
         self.in_air = True
-        self.health = 100   
+        self.health = 100 
+        self.dead = False  
     def update(self):
         dx = 0
         dy = 0
+        self.dead = False
         walk_cooldown = 1
 
         # movement inputs based on key presses
@@ -163,10 +165,11 @@ class Player:
         # if player sprite collide spike group sprites -1 to player health
         if pygame.sprite.spritecollide(self, spike_group, False):
             self.health -= 1
+        if self.health <= 0:
+            self.dead = True
         # if player sprite collide door sprites kill player sprite
         if pygame.sprite.spritecollide(self, door_group, False):
-            self.kill()
-
+            self.dead = True
         # update player cordinates
         self.rect.x += dx
         self.rect.y +=dy
@@ -184,6 +187,13 @@ class Player:
         
         # draw rectangle around the player sprite
         # pygame.draw.rect(screen, WHITE, self.rect, 2)
+    def display(self):
+        if self.dead == False:
+            self.update()
+        # if player colldie with door group kill player sprite and display YOU WIN
+        elif pygame.sprite.spritecollide(self, door_group, False):
+            self.dead = True
+            draw_text("YOU  WIN", 50, BLUE, WIDTH / 2, 320)
 
 # instence of the world class
 game_world = World(level_map)

@@ -21,6 +21,9 @@ clock = pg.time.Clock()
 mpos = (0,0)
 pygame.font.init()
 
+# tile size
+tile_size = 50
+
 # game varables
 run = True
 menu = True
@@ -38,11 +41,8 @@ img_folder = os.path.join(game_folder, 'images')
 
 # Background img Import
 background = pygame.image.load(os.path.join(game_folder,'moutain_background2.png'))
-icon = pygame.image.load(os.path.join(game_folder,'icon.png'))
-
-
-# tile size
-tile_size = 50
+icon = pygame.image.load(os.path.join(game_folder,'penguin_sprite_01.png'))
+icon = pygame.transform.scale(icon, (100, 88))
 
 # Level Map
 level_map = [

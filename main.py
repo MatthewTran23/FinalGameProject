@@ -49,7 +49,7 @@ while run == True:
         if keys[pg.K_SPACE]:
             menu = False   
     # if menu == false from keypress start game
-    if menu == False:
+    elif menu == False:
         # draw backgound
         screen.blit(background, (0,0))
         # call the method to draw the world 
@@ -57,13 +57,12 @@ while run == True:
         spike_group.draw(screen)
         door_group.draw(screen)
         # player update method called
-        player.update()
+        player.display()
 
     ## draw lose text with if conditions
     draw_text("HEALTH: " + str(player.health), 35, WHITE, 150, HEIGHT / 24)
     if player.health <= 0:
         draw_text("YOU LOSE", 50, RED, WIDTH / 2, 320)
-        player.kill()
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
