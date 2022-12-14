@@ -1,4 +1,6 @@
 '''
+Matthew Tran
+
 Penguin Slide final Project
 
 discription: a obsticle based platformer with the goal of making a user accesssable playing experience 
