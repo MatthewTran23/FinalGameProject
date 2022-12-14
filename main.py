@@ -58,11 +58,11 @@ while run == True:
         door_group.draw(screen)
         # player update method called
         player.display()
-
-    ## draw lose text with if conditions
-    draw_text("HEALTH: " + str(player.health), 35, WHITE, 150, HEIGHT / 24)
-    if player.health <= 0:
-        draw_text("YOU LOSE", 50, RED, WIDTH / 2, 320)
+        ## draw lose text with if conditions
+        draw_text("HEALTH: " + str(player.health), 35, WHITE, 150, HEIGHT / 24)
+        if player.health <= 0:
+            draw_text("YOU LOSE", 50, RED, WIDTH / 2, 320)
+    
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
