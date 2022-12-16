@@ -21,7 +21,8 @@ An in-depth paragraph about your project and overview of use.
 ### Executing program
 
 * Open Github link provided
-* import files into VsCode
+* import files into VsCode through github export
+* have pygame downloaded
 * run it and its ready to play
 
 ## Help
@@ -42,3 +43,8 @@ This project is licensed under the MIT License
 
 * [w3Schools](https://www.w3schools.com/python/default.asp)
 * [PyGame](https://www.pygame.org/docs/)
+* [geeksforgeeks]https://www.geeksforgeeks.org/python-call-function-from-another-file/
+* [opengameart] https://opengameart.org/content/tux-bros
+* [art] https://opengameart.org/content/polar-bear-platformer
+        https://caz-creates-games.itch.io/cute-penguin-sprite-idle-run-attack
+        https://omniclause.itch.io/spikes
