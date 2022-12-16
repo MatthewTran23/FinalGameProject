@@ -1,5 +1,5 @@
 # libraries
-import pygame# import libraries and modules
+import pygame
 import pygame, sys
 import pygame as pg
 from pygame.sprite import Sprite

@@ -44,6 +44,7 @@ class World():
             screen.blit(tile[0], tile[1])
             # draw rectangle around the block sprite
             # pygame.draw.rect(screen, WHITE, tile[1], 2)
+# spike class, child class of sprite class
 class Spikes(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -54,6 +55,7 @@ class Spikes(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+#  door class, child class of sprite class
 class Door(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -64,7 +66,7 @@ class Door(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
+#  player class
 class Player:
     def __init__(self, x ,y):
         # list of img assets
@@ -96,7 +98,9 @@ class Player:
         self.in_air = True
         self.health = 100 
         self.dead = False  
+    # update method
     def update(self):
+        # local varables
         dx = 0
         dy = 0
         self.dead = False
