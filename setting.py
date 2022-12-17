@@ -4,7 +4,6 @@ import pygame, sys
 import pygame as pg
 from pygame.sprite import Sprite
 from pygame.locals import *
-from random import randint
 import os 
 # settings
 
